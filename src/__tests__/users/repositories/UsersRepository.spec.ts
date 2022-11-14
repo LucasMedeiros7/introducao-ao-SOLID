@@ -1,34 +1,34 @@
-import { validate } from "uuid";
+import { validate } from 'uuid';
 
-import { UsersRepository } from "../../../modules/users/repositories/implementations/UsersRepository";
+import { UsersRepository } from '../../../modules/users/repositories/implementations/UsersRepository';
 
-describe("UsersRepository", () => {
+describe('UsersRepository', () => {
   let usersRepository: UsersRepository;
 
   beforeAll(() => {
     usersRepository = UsersRepository.getInstance();
   });
 
-  it("should be able to create new users", () => {
+  it('should be able to create new users', () => {
     const user = usersRepository.create({
-      name: "Vinicius Fraga",
-      email: "vinifraga@rocketseat.com",
+      name: 'Vinicius Fraga',
+      email: 'vinifraga@rocketseat.com'
     });
 
     expect(user).toMatchObject({
-      name: "Vinicius Fraga",
-      email: "vinifraga@rocketseat.com",
-      admin: false,
+      name: 'Vinicius Fraga',
+      email: 'vinifraga@rocketseat.com',
+      admin: false
     });
     expect(validate(user.id)).toBe(true);
     expect(user.created_at).toBeInstanceOf(Date);
     expect(user.updated_at).toBeInstanceOf(Date);
   });
 
-  it("should be able to list all users", () => {
+  it('should be able to list all users', () => {
     const user = usersRepository.create({
-      name: "Danilo Vieira",
-      email: "danilo@rocketseat.com",
+      name: 'Danilo Vieira',
+      email: 'danilo@rocketseat.com'
     });
 
     const users = usersRepository.list();
@@ -36,10 +36,10 @@ describe("UsersRepository", () => {
     expect(users).toStrictEqual(expect.arrayContaining([user]));
   });
 
-  it("should be able to find user by ID", () => {
+  it('should be able to find user by ID', () => {
     const user = usersRepository.create({
-      name: "Vinicius Fraga",
-      email: "vinifraga@rocketseat.com",
+      name: 'Vinicius Fraga',
+      email: 'vinifraga@rocketseat.com'
     });
 
     const findUser = usersRepository.findById(user.id);
@@ -47,17 +47,17 @@ describe("UsersRepository", () => {
     expect(findUser).toMatchObject({
       name: user.name,
       email: user.email,
-      admin: false,
+      admin: false
     });
     expect(validate(findUser.id)).toBe(true);
     expect(findUser.created_at).toBeInstanceOf(Date);
     expect(findUser.updated_at).toBeInstanceOf(Date);
   });
 
-  it("should be able to find user by e-mail address", () => {
+  it('should be able to find user by e-mail address', () => {
     const user = usersRepository.create({
-      name: "Vinicius Fraga",
-      email: "vinifraga@rocketseat.com",
+      name: 'Vinicius Fraga',
+      email: 'vinifraga@rocketseat.com'
     });
 
     const findUser = usersRepository.findByEmail(user.email);
@@ -65,17 +65,17 @@ describe("UsersRepository", () => {
     expect(findUser).toMatchObject({
       name: user.name,
       email: user.email,
-      admin: false,
+      admin: false
     });
     expect(validate(findUser.id)).toBe(true);
     expect(findUser.created_at).toBeInstanceOf(Date);
     expect(findUser.updated_at).toBeInstanceOf(Date);
   });
 
-  it("should be able to turn an user as admin", () => {
+  it('should be able to turn an user as admin', () => {
     const user = usersRepository.create({
-      name: "Vinicius Fraga",
-      email: "vinifraga@rocketseat.com",
+      name: 'Vinicius Fraga',
+      email: 'vinifraga@rocketseat.com'
     });
 
     const admin = usersRepository.turnAdmin(user);
@@ -83,7 +83,7 @@ describe("UsersRepository", () => {
     expect(admin).toMatchObject({
       name: user.name,
       email: user.email,
-      admin: true,
+      admin: true
     });
     expect(validate(admin.id)).toBe(true);
     expect(admin.created_at).toBeInstanceOf(Date);
